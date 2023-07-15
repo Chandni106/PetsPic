@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 import 'package:pet_pic_application/services/navigator.dart';
+import 'package:pet_pic_application/utils/navigator_route.dart';
 
 import 'package:pet_pic_application/utils/strings.dart';
 import 'package:pet_pic_application/utils/theme.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
               theme: MyTheme.lightTheme(context),
               darkTheme: MyTheme.darkTheme(context),
-      initialRoute: "/loginScreen",
+      initialRoute: "/",
         builder: (context, child) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

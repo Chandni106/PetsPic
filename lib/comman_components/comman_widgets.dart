@@ -12,14 +12,17 @@ hSpace(double width) {
     width: width,
   );
 }
-commanTextfeild(String hint,TextEditingController mController, {List<TextInputFormatter>? inputFormatters,}){
+commanTextfeild(String hint,TextEditingController mController, {List<TextInputFormatter>? inputFormatters, final String? Function(String?)? validator,
+  required Null Function(dynamic value) onChanged, }){
 
- return TextField(
+ return TextFormField(
  
         controller: mController,
         keyboardType: TextInputType.name,
         inputFormatters: inputFormatters,
-
+        validator: validator,
+         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged:onChanged,
                 decoration: InputDecoration(
                   hintText:hint,
                

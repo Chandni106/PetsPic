@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';  
 import 'package:pet_pic_application/utils/colors.dart';
+import 'package:pet_pic_application/utils/sharepRefrence.dart';
 import 'package:pet_pic_application/utils/strings.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:camera/camera.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -18,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
  XFile? image;
   final ImagePicker imgpicker = ImagePicker();
  List<XFile>? imagefiles;
+ String? petN;
     
-
 
  openImages() async {
 try {
@@ -35,40 +37,26 @@ try {
 }catch (e) {
     print("error while picking file.");
 }
-  }
+}
 
 
-//   openCamera() async {
-// try {
-//     var pickedfiles = await imgpicker.pickMultiImage();
-//     //you can use ImageCourse.camera for Camera capture
-//     if(pickedfiles != null){
-//         imagefiles = pickedfiles;
-//         setState(() {
-//         });
-//     }else{
-//         print("No image is selected.");
-//     }
-// }catch (e) {
-//     print("error while picking file.");
-// }
-//   }
-    
-    
-   
+ userdata()async{
+   petN=  await getStringVal(petNameKey);  
+ }
       @override
       void initState() {
-        // ignore: todo
-        // TODO: implement initState
+      
         super.initState();
-    //    getImageServer();
+        userdata(); 
+        print(petN);// value from shareprefrence
+  
       }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Vx.hexToColor(appColor),
-        title: Center(child: Text("pet Name")),
+        title: Center(child: Text(petN.toString())),
           actions: [
               IconButton(
                 onPressed: () => myAlert(), 
@@ -92,7 +80,7 @@ try {
                         );
                      }).toList(),
                   ):Container(
-                    child: Text(" No image "),
+                    child: Center(child: Text(" Upload the images ... ")),
                   )
         ],
 
@@ -117,11 +105,11 @@ try {
                     children: [
                       ElevatedButton(
                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all( Vx.hexToColor(appColor),)  ),
-                        //if user click this button, user can upload image from gallery
+                       
                         onPressed: () {
                           Navigator.pop(context);
                           openImages();
-                          // sendImage(ImageSource.gallery);
+                          
                         },
                         child: const Row(
                           children: [
@@ -132,9 +120,13 @@ try {
                       ),
                       ElevatedButton(
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all( Vx.hexToColor(appColor),)  ),
-                        //if user click this button. user can upload image from camera
-                        onPressed: () {
-                          Navigator.pop(context);
+                       
+                        onPressed: ()  {
+                          setState(() async{
+                             final XFile? pickedFile = await ImagePicker().pickImage(source:
+ ImageSource.camera); 
+                          });
+             
                          // sendImage(ImageSource.camera);
                         },
                         child: const Row(
@@ -150,41 +142,6 @@ try {
               );
             });
       }
-      //    Future sendImage(ImageSource media) async {
-    
-      //   var img = await picker.pickImage(source: media);
-    
-      //   var uri = "http://192.168.1.4/latihan/flutter_upload_image/create.php";
-    
-      //   var request = http.MultipartRequest('POST', Uri.parse(uri));
-    
-      //   if(img != null){
-    
-      //     var pic = await http.MultipartFile.fromPath("image", img.path);
-    
-      //     request.files.add(pic);
-    
-      //     await request.send().then((result) {
-    
-      //       http.Response.fromStream(result).then((response) {
-    
-      //         var message = jsonDecode(response.body);
-    
-      //         // show snackbar if input data successfully
-      //         final snackBar = SnackBar(content: Text(message['message']));
-      //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    
-      //         //get new list images 
-      //         getImageServer();
-      //       });
-    
-      //     }).catchError((e) {
-    
-      //       print(e);
-    
-      //     });
-      //   }
-    
-      // }
+   
     
 }

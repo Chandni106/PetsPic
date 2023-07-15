@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_pic_application/module/homescreen/home_page.dart';
+import 'package:pet_pic_application/module/vetnearby/vetNearme.dart';
 
 import '../utils/colors.dart';
 
@@ -15,7 +16,7 @@ class _BottomBarViewState extends State<BottomBarView> {
   PageController controller = PageController(initialPage: 0);
    final List<Widget> _widgetOptions = <Widget>[
   HomeScreen(),
-  HomeScreen(),
+ VetNearMeScreen(),
   HomeScreen(),
   ];
 
@@ -44,7 +45,7 @@ class _BottomBarViewState extends State<BottomBarView> {
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.home,
-                color: Colors.black,
+                color: Colors.black,size: 40,
               ),
               icon: Icon(
                 Icons.home,
@@ -56,22 +57,22 @@ class _BottomBarViewState extends State<BottomBarView> {
             ),
             BottomNavigationBarItem(
                 activeIcon: Icon(
-                  Icons.location_on_outlined,
+                  Icons.location_on_outlined,size: 40,
                   color: Colors.black,
                 ),
                 icon: Icon(
-                  Icons.history_outlined,
+                  Icons.location_on_outlined,
                   color: lightBlackColor,
                 ),
                   label: "Vet Location",
                 ),
             BottomNavigationBarItem(
                 activeIcon: Icon(
-                  Icons.plus_one_outlined,
+                  Icons.add_outlined,size: 40,
                   color: Colors.black,
                 ),
                   label: "vet grocery",
-                icon: Icon(Icons.graphic_eq_sharp, color:lightBlackColor ),
+                icon: Icon(Icons.add_outlined, color:lightBlackColor ),
                 ),
          
           ],
